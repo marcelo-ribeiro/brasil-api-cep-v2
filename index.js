@@ -1,7 +1,7 @@
 const apiURL = "https://brasilapi.com.br/api";
 const endpoint = `${apiURL}/cep/v2`;
 
-const getPostalCode = (code) => {
+const getPostalCode = async (code) => {
   try {
     const payload = await fetch(`${endpoint}/code`);
     console.log({ payload });
