@@ -10,10 +10,10 @@ const getPostalCode = async (code) => {
   }
 };
 
-const onFormSubmit = (event) => {
+function onFormSubmit(event) {
   console.log("onFormSubmit");
   event.preventDefault();
   const formData = new FormData(event.target);
   console.log(formData);
   getPostalCode(formData.get("postal-code"));
-};
+}
