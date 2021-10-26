@@ -1,24 +1,44 @@
-const apiURL = "https://brasilapi.com.br/api";
-const endpoint = `${apiURL}/cep/v2`;
+import getCEP from "./brasil-api-cep-v2.js";
 
-const getPostalCode = async (code) => {
+const address = {
+  postalCode: "",
+  street: "",
+  number: "",
+  complement: "",
+  neighborhood: "",
+  city: "",
+  state: "",
+};
+
+const setAddress = (address) => {
+  postalCode.value = address.cep;
+  streetAddress.value = address.street;
+  neighborhood.value = address.neighborhood;
+  city.value = address.city;
+  state.value = address.state;
+};
+
+const resetAddress = () => {
+  setAddress(address);
+};
+
+const formAddress = document.forms["form-address"];
+formAddress.addEventListener("reset", resetAddress);
+
+const { postalCode, streetAddress, neighborhood, city, state } =
+  formAddress.elements;
+
+postalCode.addEventListener("input", async ({ target }) => {
+  const cep = target.value.replace(/\D/g, "");
+  if (cep.length < 8) return;
+  target.disabled = true;
   try {
-    const response = await fetch(`${endpoint}/${code}`);
-    console.log({ response });
-    const payload = await response.json();
-    if (response.ok) {
-      console.log({ payload });
-    } else {
-      alert(payload.message);
-    }
+    const payload = await getCEP(cep);
+    setAddress(payload);
   } catch (error) {
-    console.log({ error });
     alert(error.message);
+  } finally {
+    target.disabled = false;
+    formAddress.reportValidity();
   }
-};
-
-const onFormSubmit = async (event) => {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-  await getPostalCode(formData.get("postal-code"));
-};
+});
