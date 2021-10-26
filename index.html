@@ -10,30 +10,76 @@
       rel="stylesheet"
     />
   </head>
-  <body class="bg-gray-50">
-    <header class="bg-white">
-      <div class="container mx-auto px-6 py-2">
-        <h1 class="text-xl">Brasil API CEP v2</h1>
-        <p class="mt-1 text-sm">
+  <body class="bg-gray-100">
+    <header>
+      <div class="container mx-auto px-6 py-12 pb-8">
+        <h1 class="text-2xl">Brasil API – CEP v2</h1>
+        <p class="mt-1 text-sm opacity-60">
           Versão 2 do serviço de busca por CEP com múltiplos providers de
           fallback.
         </p>
       </div>
     </header>
     <main>
-      <div class="container mx-auto px-6 py-6">
-        <form onsubmit="onFormSubmit">
+      <div class="container mx-auto px-6 py-8">
+        <form class="grid grid-cols-2 gap-2" onsubmit="onFormSubmit">
           <label for="cep">
-            Informe seu CEP
+            <span class="text-xs opacity-60">Informe o seu CEP</span>
             <input
               name="postal-code"
               type="text"
-              class="w-full"
+              class="w-full mt-1 py-2 px-4 rounded-lg"
               autocomplete="postal-code"
               inputmode="numeric"
+              placeholder="41760000"
+              pattern=".{8,8}"
+              maxlength="8"
+              required
             />
           </label>
-          <button class="mt-6 py-2 px-6 bg-blue-500">Enviar</button>
+          <label for="cep">
+            <span class="text-xs opacity-60">Rua</span>
+            <input
+              name="street-address"
+              type="text"
+              class="w-full mt-1 py-2 px-4 rounded-lg"
+              autocomplete="street-address"
+              autocapitalize="words"
+              placeholder="Digite aqui"
+              pattern=".{8,8}"
+              maxlength="8"
+              required
+            />
+          </label>
+          <label for="cep">
+            <span class="text-xs opacity-60">Número</span>
+            <input
+              name="street-number"
+              type="text"
+              class="w-full mt-1 py-2 px-4 rounded-lg"
+              autocomplete="address-line3"
+              inputmode="numeric"
+              placeholder="1234"
+              pattern="[0-9]"
+              maxlength="8"
+              required
+            />
+          </label>
+          <label for="cep">
+            <span class="text-xs opacity-60">Bairro</span>
+            <input
+              name="neighborhood"
+              type="text"
+              class="w-full mt-1 py-2 px-4 rounded-lg"
+              autocomplete="address-line2"
+              autocapitalize="words"
+              placeholder="Digite aqui"
+              required
+            />
+          </label>
+          <button class="py-2 px-4 bg-blue-500 text-white rounded-lg self-end">
+            Enviar
+          </button>
         </form>
       </div>
     </main>

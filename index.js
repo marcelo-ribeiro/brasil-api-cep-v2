@@ -3,17 +3,22 @@ const endpoint = `${apiURL}/cep/v2`;
 
 const getPostalCode = async (code) => {
   try {
-    const payload = await fetch(`${endpoint}/code`);
-    console.log({ payload });
+    const response = await fetch(`${endpoint}/${code}`);
+    console.log({ response });
+    const payload = await response.json();
+    if (response.ok) {
+      console.log({ payload });
+    } else {
+      alert(payload.message);
+    }
   } catch (error) {
+    console.log({ error });
     alert(error.message);
   }
 };
 
-function onFormSubmit(event) {
-  console.log("onFormSubmit");
+const onFormSubmit = async (event) => {
   event.preventDefault();
   const formData = new FormData(event.target);
-  console.log(formData);
-  getPostalCode(formData.get("postal-code"));
-}
+  await getPostalCode(formData.get("postal-code"));
+};
