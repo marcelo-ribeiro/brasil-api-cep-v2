@@ -18,12 +18,7 @@ const setAddress = (address) => {
   state.value = address.state;
 };
 
-const resetAddress = () => {
-  setAddress(address);
-};
-
 const formAddress = document.forms["form-address"];
-formAddress.addEventListener("reset", resetAddress);
 
 const { postalCode, streetAddress, neighborhood, city, state } =
   formAddress.elements;
